@@ -6,6 +6,7 @@ services:
       APP_HOST: alphavue-unifi-controller_server_1
       APP_PORT: 8443
   server:
+    user: "1000:1000"
     image: ryansch/unifi-rpi:latest
     container_name: unifi-controller
     restart: unless-stopped
