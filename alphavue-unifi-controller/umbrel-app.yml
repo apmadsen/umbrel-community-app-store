@@ -10,7 +10,7 @@ description: >-
   Add your app's description here.
 
 
-developer: Alphavue
+developer: Ubiquiti
 website: 
 submitter: Alphavue
 submission: 
@@ -22,5 +22,3 @@ releaseNotes: >-
   Add what's new in the latest version of your app here.
 dependencies: []
 path: ""
-defaultUsername: "unifi"
-defaultPassword: "unifi"
