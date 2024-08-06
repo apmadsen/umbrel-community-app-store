@@ -1,24 +1,29 @@
-version: "3.7"
+version: "1.0"
 
 services:
-
   app_proxy:
     environment:
-      # The format here is: <app-id>_<docker-service-name>_1
       APP_HOST: alphavue-unifi-controller_server_1
-      APP_PORT: 3000
-    
+      APP_PORT: 8443
   server:
-    user: unifi
-    image: ghcr.io/jacobalberty/unifi-docker
+    image: ryansch/unifi-rpi:latest
     container_name: unifi-controller
     restart: unless-stopped
+    environment:
+      JAVA_OPTS: -Xmx1024M
     ports:
+      - "3478:3478/udp"
       - "8080:8080"
       - "8443:8443"
-      - "3478:3478/udp"
-      - "10001:10001/udp"
+      - "8880:8880"
+      - "8843"
+      - "6789:6789"
     environment:
       TZ: "Europe/Copenhagen"
     volumes:
-      - ./data:/unifi
+      - config:/var/lib/unifi
+      - log:/usr/lib/unifi/logs
+      - log2:/var/log/unifi
+      - run:/usr/lib/unifi/run
+      - run2:/run/unifi
+      - work:/usr/lib/unifi/work
