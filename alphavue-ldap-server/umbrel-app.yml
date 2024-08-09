@@ -1,0 +1,24 @@
+manifestVersion: 1
+id: alphavue-ldap-server
+name: LDAP server
+tagline: OpenLDAP server and UI
+icon: https://svgur.com/i/mvA.svg
+category: Network
+version: "1.0.0"
+port: 4000
+description: >-
+  An OpenLDAP server and UI implementation
+
+
+developer: Open Source
+website:
+submitter: Alphavue
+submission:
+repo:
+support:
+gallery:
+  - https://i.imgur.com/yyVG0Jb.jpeg
+releaseNotes: >-
+  Add what's new in the latest version of your app here.
+dependencies: []
+path: ""
