@@ -2,7 +2,7 @@ version: "3.8"
 services:
   app_proxy:
     environment:
-      APP_HOST: alphavue-ldap-server
+      APP_HOST: openldap_server_1
       APP_PORT: 8443
   server:
     image: osixia/openldap:1.5.0
@@ -10,34 +10,34 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data/db:/var/lib/ldap
       - ${APP_DATA_DIR}/data/config:/etc/ldap/slapd.d
+    user: '1000:1000'
     environment:
-      - PUID=1000
-      - PGID=1000
-      - LDAP_ORGANISATION=alphavue.local
-      - LDAP_DOMAIN=alphavue.local
-      - LDAP_ADMIN_PASSWORD=admin
-      - LDAP_CONFIG_PASSWORD=config
-      - LDAP_RFC2307BIS_SCHEMA=true
-      - LDAP_REMOVE_CONFIG_AFTER_SETUP=true
-      - LDAP_TLS_VERIFY_CLIENT=never
+      LDAP_ORGANISATION: alphavue.local
+      LDAP_DOMAIN: alphavue.local
+      LDAP_ADMIN_PASSWORD: admin
+      LDAP_CONFIG_PASSWORD: config
+      LDAP_RFC2307BIS_SCHEMA: true
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: true
+      LDAP_TLS_VERIFY_CLIENT: never
     networks:
       - openldap
-  ui:
+  mac:
     image: wheelybird/ldap-user-manager:v1.5
     container_name: openldap-ui
+    user: '1000:1000'
     environment:
-      - PUID=1000
-      - PGID=1000
-      - LDAP_URI=ldap://openldap
-      - LDAP_BASE_DN=dc=alphavue,dc=local
-      - LDAP_REQUIRE_STARTTLS=FALSE
-      - LDAP_ADMINS_GROUP=admins
-      - LDAP_ADMIN_BIND_DN=cn=admin,dc=alphavue,dc=local
-      - LDAP_ADMIN_BIND_PWD=admin
-      - LDAP_IGNORE_CERT_ERRORS=true
-      - NO_HTTPS=TRUE
-      - PASSWORD_HASH=SSHA
-      - SERVER_HOSTNAME=localhost:18080
+      APP_ID: openldap
+      APP_URL: http://openldap_server:7878
+      LDAP_URI: ldap://openldap
+      LDAP_BASE_DN: dc=alphavue,dc=local
+      LDAP_REQUIRE_STARTTLS: FALSE
+      LDAP_ADMINS_GROUP: admins
+      LDAP_ADMIN_BIND_DN: cn=admin,dc=alphavue,dc=local
+      LDAP_ADMIN_BIND_PWD: admin
+      LDAP_IGNORE_CERT_ERRORS: true
+      NO_HTTPS: TRUE
+      PASSWORD_HASH: SSHA
+      SERVER_HOSTNAME: localhost:18080
     depends_on:
       - openldap-server
     ports:
